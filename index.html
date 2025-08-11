@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左皓嘉作品集 | 昆明理工大学</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#FF7D00',
+                        dark: '#1D2129',
+                        light: '#F2F3F5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            }
+            .bg-gradient-overlay {
+                background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            }
+            .section-fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            .section-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .modal-backdrop {
+                backdrop-filter: blur(5px);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light text-dark font-sans antialiased">
+    <!-- 图片预览模态框 -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop bg-dark/80">
+        <div class="relative max-w-5xl w-full max-h-[90vh] px-4">
+            <button id="closeModal" class="absolute -top-12 right-0 text-white text-2xl hover:text-secondary transition-colors">
+                <i class="fa fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="大图预览" class="max-w-full max-h-[90vh] object-contain">
+            <p id="modalCaption" class="text-white text-center mt-4"></p>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+            <a href="#" class="text-2xl font-display font-bold text-white text-shadow-lg">
+                <span class="text-secondary">左皓嘉</span>作品集
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#formula" class="text-white hover:text-secondary transition-colors">FSC方程式汽车大赛</a>
+                <a href="#3d" class="text-white hover:text-secondary transition-colors">3D大赛</a>
+                <a href="#simulation" class="text-white hover:text-secondary transition-colors">运动仿真</a>
+                <a href="#fea" class="text-white hover:text-secondary transition-colors">有限元分析</a>
+                <a href="#cadre" class="text-white hover:text-secondary transition-colors">学生干部</a>
+            </div>
+            <button class="md:hidden text-white text-2xl" id="menuToggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-dark/95 absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#formula" class="text-white hover:text-secondary transition-colors py-2">方程式大赛</a>
+                <a href="#3d" class="text-white hover:text-secondary transition-colors py-2">三维设计大赛</a>
+                <a href="#simulation" class="text-white hover:text-secondary transition-colors py-2">运动仿真</a>
+                <a href="#fea" class="text-white hover:text-secondary transition-colors py-2">有限元分析</a>
+                <a href="#cadre" class="text-white hover:text-secondary transition-colors py-2">学生干部</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 - 使用赛车图片作为背景 -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- 可替换的赛车图片背景 -->
+            <img src="https://picsum.photos/id/1071/1920/1080" alt="赛车背景图" class="object-cover w-full h-full">
+            <div class="absolute inset-0 bg-gradient-overlay"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-display font-bold text-white leading-tight mb-6 animate-[fadeIn_1s_ease-in-out] text-shadow-lg">
+                昆明理工大学<br><span class="text-secondary">左皓嘉</span>作品集
+            </h1>
+            <p class="text-[clamp(1rem,3vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 animate-[fadeIn_1.2s_ease-in-out] text-shadow">
+             
+            </p>
+            <a href="#formula" class="inline-block animate-bounce mt-10">
+                <i class="fa fa-angle-down text-white text-4xl"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- 中国大学生方程式汽车大赛 -->
+    <section id="formula" class="py-20 bg-gray-50 section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                中国大学生方程式汽车大赛
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                作为团队核心成员，参与了赛车设计、制造与测试的全过程，负责赛车车架，制动，传动部分
+            </p>
+            
+            <!-- 视频展示 -->
+            <h3 class="text-2xl font-bold mb-8 text-center">FSC赛事视频</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- 视频1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\d0b5343840bb23be46efe68b86093b99.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">赛车制动系统实车测试</h4>
+                        <p class="text-gray-600">24赛季38号赛车在学校对刚排好空气的制动系统进行制动力测试，制动系统性能达到初步要求</p>
+                    </div>
+                </div>
+                
+                <!-- 视频2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\0ad194a56d228b0a0d2cc1f098309dbd.mp4"type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">整车跑动测试</h4>
+                        <p class="text-gray-600">24赛季38号赛车赛前在学校进行赛车跑动测试</p>
+                    </div>
+                </div>
+                
+                <!-- 视频3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\6458b62e80941daab363cdbc4136d6ce.mp4"type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">发动机与传动系统测试</h4>
+                        <p class="text-gray-600">24赛季整车发动机与传动系统第一次测试，由于链条不适配，传动不平稳，并且由于卡钳安装位置误差较大，制动踏板放松时出现拖滞现现象</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 图片展示 -->
+            <h3 class="text-2xl font-bold mb-8 text-center">23、24赛季29、38号两台赛车的FSC赛事照片（点击可查看完整图片）</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- 图片1-12 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\-66c3bfb2322b79b0.jpg" alt="赛车设计会议" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="23赛季赛车车架加工前在焊台做定位工图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">23赛季赛车车架加工前在焊台做定位工图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\IMG_20230715_152917.jpg"alt="底盘加工" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="23赛季车架设计图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">23赛季车架设计图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                     <img src="E:\工作实习\作品集\左皓嘉个人作品集\IMG_20230718_173255.jpg" alt="车架" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="车架初步完工">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">车架初步完工</p>
+                    </div>
+
+                </div>
+                 <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\0e5ba90b18df762799d098833242c566.jpg" alt="团队协作" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="23赛季29号赛车总装">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">23赛季29号赛车总装</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\30bb39bd813d1d7e4ee5c13b0a0d7c91.jpg" alt="赛车成品" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="23赛季29号赛车赛场照片">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">23赛季29号赛车赛场照片</p>
+                    </div>
+                </div>
+                
+               
+                
+               
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\屏幕截图 2024-04-21 211719.png" alt="24赛季车架" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季车架设计图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季车架设计图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\e1f048d7afbf18504e4c7b57c58c9db3.jpg" alt="比赛瞬间" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="利用CATIA设计车架管激光剖切口">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">利用CATIA设计车架管激光剖切口</p>
+                    </div>
+                </div>
+
+               <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\屏幕截图 2024-04-20 175210.png" alt="24赛季车架有限元分析" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季车架有限元分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季车架有限元分析</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\319c37ccac2662592a5e2cff0acdb6ed.jpg" alt="团队协作" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="车架管材激光切割剖口">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">车架管材激光切割剖口</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\b62a00132ae8d799e03f0cdf2fd6026f.jpg" alt="24赛季车架初步完工" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季车架初步完工">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季车架初步完工</p>
+                    </div>
+                </div>
+                
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\屏幕截图 2024-10-07 215328.png" alt="差速器支架" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="差速器支架有限元分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">差速器支架有限元分析</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\42c13292f19a74b779a713c374ad5134.jpg" alt="技术评审" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="差速器支架机加工加工实物">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">差速器支架机加工实物</p>
+                    </div>
+                </div>
+                
+                 <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\屏幕截图 2024-09-05 231258.png" alt="制动踏板设计图" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季制动踏板设计图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季制动踏板设计图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\fdbdbc25ea28a513368d910ddd2cf502.jpg" alt="获奖瞬间" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="制动系统主缸与供油管路">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">制动系统主缸与供油管路</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\e1f69b7c7d37c30a9a9f0260ce3261de.jpg" alt="团队合影" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="后轴单制动器">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">后轴单制动器</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\492fb250f77593221b7ba8181075b335.jpg" alt="赛车展示" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季38号赛车传动及制动系统">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季38号赛车传动及制动系统</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\409abe4a0bce1af100cbfe99114a5cc5.jpg" alt="技术评审" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季赛车总装">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季赛车总装</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\6adf3d838ba1fc21bdb7fe832cdbec64.jpg" alt="获奖瞬间" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季38号赛场赛场照片">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季38号赛场赛场照片</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\530884ab4ac1f4377b7ba99f37dc7733.jpg" alt="团队合影" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption=24赛季赛场车检过程>
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季赛场车检过程</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\897d6e35f9e5a513d0dd8dd0874d4570.jpg" alt="赛车展示" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="24赛季车检通过标识">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">24赛季车检通过标识</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 全国三维数字化创新设计大赛 -->
+    <section id="3d" class="py-20 bg-white section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                全国三维数字化创新设计大赛
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                作为参赛队长，提出作品创意，负责作品关键部件的三维建模与创新设计，进行运动仿真与有限元分析以及作品渲染。
+            </p>
+            
+            <!-- 视频展示 -->
+            <h3 class="text-2xl font-bold mb-8 text-center">作品展示视频</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- 视频1 (B站嵌入) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                    <div class="relative aspect-video">
+                        <iframe src="https://player.bilibili.com/player.html?aid=114832191849893&bvid=BV1dkuKznEts&cid=30968645945&page=1" 
+                                scrolling="no" 
+                                border="0" 
+                                frameborder="no" 
+                                framespacing="0" 
+                                allowfullscreen="true" 
+                                class="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">作品模型爆炸展示</h4>
+                        <p class="text-gray-600">作品爆炸渲染动画，使用UG进行精密建模，利用keyshot渲染并制作动画。</p>
+                    </div>
+                </div>
+                
+                <!-- 视频2 (B站嵌入) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                    <div class="relative aspect-video">
+                        <iframe src="https://player.bilibili.com/player.html?aid=114832191786075&bvid=BV1vkuKznE7m&cid=30968581390&page=1" 
+                                scrolling="no" 
+                                border="0" 
+                                frameborder="no" 
+                                framespacing="0" 
+                                allowfullscreen="true" 
+                                class="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">整车底盘运动仿真测试</h4>
+                        <p class="text-gray-600">通过运动仿真验证设计合理性，检测干涉问题，优化作品结构。</p>
+                    </div>
+                </div>
+
+                <!-- 视频3 (B站嵌入) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                    <div class="relative aspect-video">
+                        <iframe src="https://player.bilibili.com/player.html?aid=114832208628839&bvid=BV1d6uKzQEhs&cid=30968710718&page=1" 
+                                scrolling="no" 
+                                border="0" 
+                                frameborder="no" 
+                                framespacing="0" 
+                                allowfullscreen="true" 
+                                class="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">作品心肺复苏按压功能运动仿真演示</h4>
+                        <p class="text-gray-600">通过运动仿真验证设计合理性，检测机构干涉问题，优化作品结构，并制作演示动画</p>
+                    </div>
+                </div>
+                
+                <!-- 视频4 (B站嵌入) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                    <div class="relative aspect-video">
+                        <iframe src="https://player.bilibili.com/player.html?aid=114832208562703&bvid=BV1i6uKzQE8p&cid=30968647385&page=1" 
+                                scrolling="no" 
+                                border="0" 
+                                frameborder="no" 
+                                framespacing="0" 
+                                allowfullscreen="true" 
+                                class="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">作品配药功能运动仿真演示</h4>
+                        <p class="text-gray-600">通过运动仿真验证设计合理性，检测机构干涉问题，优化作品结构，并制作演示动画</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 图片展示 -->
+            <h3 class="text-2xl font-bold mb-8 text-center">设计成果展示</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                <!-- 图片1-9 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\3d模型.png" alt="作品3D三维模型总装" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="作品3D三维模型总装">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">作品3D三维模型总装</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\bba2fd848d98e2453fd61144a1f0ca0a.png" alt="装配图" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="作品各模块爆炸展示">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">作品各模块爆炸展示</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\7a3fbe25c3342dca89915b89711a8abf.jpg" alt="爆炸图" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="作品整体外观渲染图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">作品整体外观渲染图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\3d剖视.png" alt="细节设计" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="作品模型剖视图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">作品模型剖视图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\f58e750a1b9ddc347089acd4c94cf167.jpg" alt="渲染图1" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="无人机送药系统渲染图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">无人机送药系统渲染图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\db1d1fcd52245fd6341ab446c32f48cb.jpg" alt="渲染图2" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="麦克纳姆轮底盘渲染图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">麦克纳姆轮底盘渲染图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\底盘运动仿真.png" alt="实物展示1" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="底盘运动仿真过程">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">底盘运动仿真</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\储药舱渲染图.jpeg" alt="实物展示2" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="储药系统渲染图">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">储药系统渲染图</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\7月8日 (1).gif" alt="答辩现场" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="麦克纳姆轮及悬架爆炸图展示">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">麦克纳姆轮及悬架爆炸图展示</p>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\youxianyuan.gif" alt="实物展示1" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="齿轮减速器瞬态分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">齿轮减速器瞬态分析</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\悬架应力.png" alt="实物展示2" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="关键部件有限元分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">关键部件有限元分析</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\驱动器.gif" alt="答辩现场" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="机械臂按压模块爆炸展示">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">机械臂按压模块爆炸展示</p>
+                    </div>
+                </div>
+
+            </div>
+             <h3 class="text-2xl font-bold mb-8 text-center">复制作品链接，粘贴至浏览器可查看完整3D大赛作品详情：https://3dshow.3ddl.net/app/ftlfdn</h3>
+
+        </div>
+    </section>
+
+    <!-- 运动仿真案例 -->
+    <section id="simulation" class="py-20 bg-gray-50 section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                运动仿真案例
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                使用NX（UG）运动仿真模块进行动力学仿真分析，优化机构性能参数
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 视频1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-07-07 18-47-57.mp4"type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">悬架系统动力学仿真</h4>
+                        <p class="text-gray-600">分析不同路况下悬架系统的响应特性，优化弹簧刚度与阻尼系数参数。</p>
+                    </div>
+                </div>
+                
+                <!-- 视频2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-05-11 22-16-58.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">机械臂运动仿真</h4>
+                        <p class="text-gray-600">运用运动仿真检查机构合理性，检查运动干涉，制作机构功能演示动画</p>
+                    </div>
+                </div>
+                
+                <!-- 视频3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-03-19 20-34-57.mp4"type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">沙滩垃圾清理车运动仿真</h4>
+                        <p class="text-gray-600">运用运动仿真检查机构合理性，检查运动干涉，制作机构功能演示动画。</p>
+                    </div>
+                </div>
+                
+                <!-- 视频4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-08-10 10-27-19.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">V8发动机运动仿真</h4>
+                        <p class="text-gray-600">运用UG运动仿真模拟V8发动机工作状况，检验机构设计及装配合理性</p>
+                    </div>
+                </div>
+                
+                <!-- 视频5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-08-10 11-15-52.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">双叉臂独立悬架运动仿真</h4>
+                        <p class="text-gray-600">建立双叉臂独立悬架动力学模型，模拟双叉臂独立悬架在复杂路况及转向工况下的动力学响应。</p>
+                    </div>
+                </div>
+                
+                <!-- 视频6 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative aspect-video">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="E:\工作实习\作品集\左皓嘉个人作品集\2025-05-14 13-22-19.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">托森差速器运动仿真</h4>
+                        <p class="text-gray-600">通过运动仿真来模拟托森差速器的差速功能</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 有限元分析案例 -->
+    <section id="fea" class="py-20 bg-white section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                有限元分析案例
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                使用ANSYS、NX前/后处理模块（nastran）等软件进行有限元分析
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 图片1-6 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\压杆稳定性分析3阶.png" alt="车架强度分析" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="压杆稳定性有限元分析3阶状态">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">压杆稳定性有限元分析3阶状态</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\7月8日.gif" alt="悬架臂分析" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="NX前后处理1D梁单元结构有限元分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">NX（UG）前后处理1D梁单元结构有限元分析</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\UG前后处理（nastran）模型网格划分.png" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="NX(UG)前后处理（nastran）模型六面体网格划分">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">NX(UG)前后处理（nastran）模型六面体网格划分</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\7月8日(2).gif" alt="车身碰撞分析" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="2D与0D有限元简化分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">2D与0D有限元简化分析</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\六面体网格划分.png" alt="疲劳寿命分析" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="模型六面体网格划分">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">模型六面体网格划分</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\屏幕截图 2024-04-20 175338.png" alt="热分析" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="方程式赛车车架有限元分析">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">方程式赛车车架有限元分析</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 易班学生干部经历 -->
+    <section id="cadre" class="py-20 bg-gray-50 section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                易班学生干部经历
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                担任易班学生干部期间，组织多项校园活动，提升了组织协调与沟通能力
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 图片1-6 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\收集热点.png" alt="热点收集" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="大学生网络思想动态热点收集">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">大学生网络思想动态热点收集</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\推文收集.png" alt="推文转发" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="易班APP推文审核与转发">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">易班APP推文审核与转发</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover flex flex-col">
+                    <div class="relative overflow-hidden">
+                        <img src="E:\工作实习\作品集\左皓嘉个人作品集\舆情中心例会合照.png" alt="舆情中心例会合照" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110 gallery-img" data-caption="舆情中心例会合照">
+                    </div>
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 text-sm">舆情中心例会合照</p>
+                    </div>
+                </div>
+
+               
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="cadre" class="py-20 bg-gray-50 section-fade-in">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-display font-bold mb-4 text-center">
+                最后留言
+            </h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                    尊敬的HR，非常感谢您的观看，该作品集网页展示了我大学期间的竞赛经历、学生干部经历以及一些其他项目经历的部分图片以及视频，非常希望我能达到贵公司的招聘要求，同时给予我一个工作学习，实现自我价值的机会。
+                无论最后结果怎样，都祝愿贵公司业务蒸蒸日上！
+            </p>
+        </div>
+    </section>
+    
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/90', 'shadow-lg');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('bg-dark/90', 'shadow-lg');
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-fade-in').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 图片预览功能
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const closeBtn = document.getElementById('closeModal');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+
+        // 打开模态框
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImg.src = this.src;
+                modalCaption.textContent = this.getAttribute('data-caption');
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            });
+        });
+
+        // 关闭模态框
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        });
+
+        // 点击模态框背景关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 键盘ESC关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动菜单
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
